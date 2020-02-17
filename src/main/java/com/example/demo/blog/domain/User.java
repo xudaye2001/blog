@@ -21,7 +21,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) // 自增长策略
 	private Long id; // 实体一个唯一标识
 
-	@NotEmpty
+	@NotEmpty(message = "姓名不能为空")
 	@Size(min = 2, max = 20)
 	@Column(nullable = false, length = 20)
 	private String name;
@@ -43,4 +43,12 @@ public class User {
 
 	@Column(length = 200)
 	private String avatar;
+
+
+	public User(String name, String email, String username, String password) {
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
 }

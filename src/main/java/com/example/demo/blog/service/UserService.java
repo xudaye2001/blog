@@ -5,6 +5,8 @@ import com.example.demo.blog.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 public interface UserService {
     /**
      * 新增/编辑/保存用户
@@ -29,7 +31,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    User getUserById(Long id);
+    Optional<User> getUserById(Long id);
 
     /**
      *
@@ -37,5 +39,5 @@ public interface UserService {
      * @param pageable
      * @return
      */
-    Page<User> listByNameLike(String name, Pageable pageable);
+    Page<User> listUsersByNameLike(String name, Pageable pageable);
 }
