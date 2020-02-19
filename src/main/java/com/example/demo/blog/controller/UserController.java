@@ -30,6 +30,8 @@ import java.util.Optional;
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
 	private UserService userService;
 
 	/**
@@ -57,19 +59,7 @@ public class UserController {
 		return new ModelAndView(async == true ? "users/list : : #mainContainerRepleace" : "users/list", "userModel",model);
 	}
 
-	/**
-	 * 根据 id 查询用户
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("{id}")
-	public ModelAndView view(@PathVariable("id") Long id, Model model) {
-		Optional<User> user = userRepository.findById(id);
-		model.addAttribute("user", user.get());
-		model.addAttribute("title", "查看用户");
-		return new ModelAndView("users/view","userModel",model);
-	}
+
 	
 	/**
 	 * 获取创建表单页面
