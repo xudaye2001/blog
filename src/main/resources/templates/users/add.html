@@ -27,7 +27,13 @@
 				th:value="*{password}" maxlength="30"
 				placeholder="请输入密码，字母或特殊符号和数字结合">
 		</div>
-
+		<div class="form-group">
+			<label for="authorities" class="col-form-label">角色</label>
+			<select id="authorities" name="authorityId" class="form-control form-control-chosen" data-placeholder="请选择">
+			  <option value="1">管理员</option>
+			  <option value="2">博主</option>
+			</select>
+		</div>
 	</form>
 
 </div><!-- /.container -->

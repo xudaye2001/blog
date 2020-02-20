@@ -1,11 +1,17 @@
 package com.example.demo.blog.domain;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 //import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * User 实体.
@@ -15,7 +21,7 @@ import javax.validation.constraints.Size;
  */
 @Entity // 实体
 @Data
-public class User {
+public class User implements UserDetails {
 
 	@Id // 主键
 	@GeneratedValue(strategy=GenerationType.IDENTITY) // 自增长策略
@@ -53,4 +59,48 @@ public class User {
 	}
 
 	public User( ) { }
+
+
+	private static final long serialVersionUID = 1L;
+
+	@ManyToMany(
+			cascade = CascadeType.DETACH,
+			fetch = FetchType.EAGER
+	)
+	@JoinTable(
+			name = "user_authority",
+			joinColumns = @JoinColumn(name="user_id", referencedColumnName="id"),
+			inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
+	)
+	private List<Authority> authorities;
+
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+		for(GrantedAuthority authority: this.authorities) {
+			simpleGrantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
+		}
+		return simpleGrantedAuthorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

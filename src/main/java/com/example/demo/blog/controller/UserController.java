@@ -1,7 +1,9 @@
 package com.example.demo.blog.controller;
 
+import com.example.demo.blog.domain.Authority;
 import com.example.demo.blog.domain.User;
 import com.example.demo.blog.repository.UserRepository;
+import com.example.demo.blog.service.AuthorityService;
 import com.example.demo.blog.service.UserService;
 import com.example.demo.blog.util.ConstraintViolationExceptionHandler;
 import com.example.demo.blog.vo.Response;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +33,9 @@ import java.util.Optional;
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private AuthorityService authorityService ;
 
 	@Autowired
 	private UserService userService;
@@ -71,17 +77,22 @@ public class UserController {
 		model.addAttribute("user", new User(null, null, null, null));
 		return new ModelAndView("users/add","userModel",model);
 	}
-	
+
+
 	/**
 	 * 保存或者修改用户
 	 * @param user
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<Response> saveOrUpdateUser(User user) {
-		try{
+	public ResponseEntity<Response> saveOrUpdateUser(User user, Long authorityId) {
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authorityService.getAuthorityById(authorityId).get());
+		user.setAuthorities(authorities);
+
+		try {
 			userService.saveOrUpdateUser(user);
-		}catch (ConstraintViolationException e) {
+		} catch (ConstraintViolationException e) {
 			return ResponseEntity.ok().body(new Response(false, ConstraintViolationExceptionHandler.getMessage(e)));
 		}
 		return ResponseEntity.ok().body(new Response(true, "处理成功", user));
