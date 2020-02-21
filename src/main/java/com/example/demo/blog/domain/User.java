@@ -43,8 +43,8 @@ public class User implements UserDetails {
 	private String username;
 
 	@NotEmpty(message = "密码不能为空")
-	@Size(min = 4, max = 20)
-	@Column(nullable = false, length = 20)
+	@Size(min = 4, max = 200)
+	@Column(nullable = false, length = 50)
 	private String password;
 
 	@Column(length = 200)
@@ -63,10 +63,7 @@ public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToMany(
-			cascade = CascadeType.DETACH,
-			fetch = FetchType.EAGER
-	)
+	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "user_authority",
 			joinColumns = @JoinColumn(name="user_id", referencedColumnName="id"),

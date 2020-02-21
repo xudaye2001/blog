@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-th-fragment="header">
+<html lang="en" data-th-fragment="header" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- CSRF -->
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<!-- default header name is X-RSRF-TOKEN -->
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
 
     <!-- Tether core CSS -->
     <link href="../../css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
