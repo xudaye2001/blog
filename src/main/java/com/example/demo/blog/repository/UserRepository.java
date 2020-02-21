@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * User Repository 接口.
- * 
+ *
+ * @author <a href="https://waylau.com">Way Lau</a>
  * @since 1.0.0 2017年7月16日
- * @author <a href="https://waylau.com">Way Lau</a> 
  */
 public interface UserRepository extends JpaRepository<User, Long> {
     /**

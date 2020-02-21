@@ -23,8 +23,9 @@ repositories {
 }
 
 dependencies {
-////     https://mvnrepository.com/artifact/org.projectlombok/lombok
-//    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+    // https://mvnrepository.com/artifact/markdown-clj/markdown-clj
+    compile group: 'markdown-clj', name: 'markdown-clj', version: '1.10.1'
+
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'

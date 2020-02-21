@@ -8,6 +8,6 @@
 //# sourceURL=blog.js
 
 // DOM 加载完再执行
-$(function() {
-	$.catalog("#catalog", ".post-content");
+$(function () {
+    $.catalog("#catalog", ".post-content");
 });

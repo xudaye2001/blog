@@ -20,6 +20,6 @@ public class AdminController {
         list.add(new Menu("用户管理", "/users"));
         list.add(new Menu("测试菜单", "/text"));
         model.addAttribute("list", list);
-        return new ModelAndView("admins/index","model",model);
+        return new ModelAndView("admins/index", "model", model);
     }
 }

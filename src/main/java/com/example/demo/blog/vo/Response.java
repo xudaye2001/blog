@@ -11,6 +11,7 @@ public class Response {
     public boolean isSuccess() {
         return success;
     }
+
     public void setSuccess(boolean success) {
         this.success = success;
     }
@@ -21,6 +22,7 @@ public class Response {
     public String getMessage() {
         return message;
     }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -35,6 +37,7 @@ public class Response {
     public void setBody(Object body) {
         this.body = body;
     }
+
     public Response(boolean success, String message) {
         this.success = success;
         this.message = message;

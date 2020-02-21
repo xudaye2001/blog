@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Page<User> listUsersByNameLike(String name, Pageable pageable) {
-        name ="%"+name+"%";
+        name = "%" + name + "%";
         Page<User> users = userRepository.findByNameLike(name, pageable);
         return users;
     }
