@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -82,6 +84,7 @@ public class User implements UserDetails {
         return simpleGrantedAuthorities;
     }
 
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -100,5 +103,11 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setEncodePassword(String password) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodePasswd = encoder.encode(password);
+        this.password = encodePasswd;
     }
 }
