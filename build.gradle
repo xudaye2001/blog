@@ -25,7 +25,7 @@ repositories {
 dependencies {
 
     // markdown
-//    compile group: 'markdown-clj', name: 'markdown-clj', version: '1.10.1'
+    compile group: 'markdown-clj', name: 'markdown-clj', version: '1.10.1'
 
     // lombok
     //    lombok    annotationProcessor 'org.projectlombok:lombok'
