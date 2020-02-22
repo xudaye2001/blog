@@ -2,8 +2,11 @@ package com.example.demo.blog.controller;
 
 import com.example.demo.blog.domain.User;
 import com.example.demo.blog.service.UserService;
+import com.example.demo.blog.service.UserServiceImpl;
+import com.example.demo.blog.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -61,26 +64,36 @@ public class UserspaceController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserServiceImpl userDetailsService;
+
     @Value("${file.server.url}")
     private String fileServerUrl;
 
+
+
     /**
-     * 获取个人页面
+     * 获取编辑个人主页页面
      * @param usernname
      * @param model
      * @return
      */
     @GetMapping("/{username}/profile")
     @PreAuthorize("authentication.name.equals(#username)")
-    public ModelAndView profile(@PathVariable("id") String usernname, Model model) {
-        User user = (User) userDetailsService.loadUserByUsername(usernname);
+    public ModelAndView profile(@PathVariable("username") String username, Model model) {
+        User user = (User) userDetailsService.loadUserByUsername(username);
         model.addAttribute("user", user);
         model.addAttribute("fileServerUrl", fileServerUrl);
-        return new ModelAndView("/userspace/profile", "userModle", model);
+        return new ModelAndView("/userspace/profile", "userModel", model);
     }
 
+    /**
+     * 更改个人主页资料
+     * @param username
+     * @param user
+     * @return
+     */
     @PostMapping("/{username}/profile")
     @PreAuthorize("authentication.name.equals(#username)")
     public String saveProfile(@PathVariable("username") String username, User user) {
@@ -98,5 +111,30 @@ public class UserspaceController {
 
     userService.saveOrUpdateUser(originalUser);
     return "redirect:/u/" + username + "/profile";
+    }
+
+    /**
+     * 获取编辑头像页面
+     * @param username
+     * @param model
+     * @return
+     */
+    @GetMapping("/{username}/acatar")
+    @PreAuthorize("authentication.equals(#username)")
+    public ModelAndView avatar(@PathVariable("username") String username, Model model) {
+        User user = (User) userDetailsService.loadUserByUsername(username);
+        model.addAttribute("user", user);
+        return new ModelAndView("/userspace/avatar", "userModel", model);
+    }
+
+    @PostMapping("/{username}/acatar")
+    @PreAuthorize("authentication.equals(#username)")
+    public ResponseEntity savaAvatar(@PathVariable("username") String username, @RequestBody User user) {
+        String avatarUrl = user.getAvatar();
+        User originalUser = userService.getUserById(user.getId()).get();
+        originalUser.setAvatar(avatarUrl);
+        userService.saveOrUpdateUser(originalUser);
+
+        return ResponseEntity.ok().body(new Response(true, "处理成功", avatarUrl));
     }
 }

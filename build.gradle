@@ -23,10 +23,12 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/markdown-clj/markdown-clj
-    compile group: 'markdown-clj', name: 'markdown-clj', version: '1.10.1'
 
-    annotationProcessor 'org.projectlombok:lombok'
+    // markdown
+//    compile group: 'markdown-clj', name: 'markdown-clj', version: '1.10.1'
+
+    // lombok
+    //    lombok    annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
@@ -34,17 +36,26 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
 
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    // commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // 认证与权限依赖
     implementation 'org.springframework.boot:spring-boot-starter-security'
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
+
+    //thymeleaf模板
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    //spring web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 开开发者工具
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    //MySQL驱动
     runtimeOnly 'mysql:mysql-connector-java'
+
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.2.4.RELEASE'
