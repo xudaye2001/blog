@@ -24,8 +24,9 @@ repositories {
 
 dependencies {
 
-    // markdown
-    compile group: 'markdown-clj', name: 'markdown-clj', version: '1.10.1'
+    // https://mvnrepository.com/artifact/com.github.rjeschke/txtmark
+    compile group: 'com.github.rjeschke', name: 'txtmark', version: '0.13'
+
 
     // lombok
     //    lombok    annotationProcessor 'org.projectlombok:lombok'

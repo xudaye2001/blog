@@ -1,7 +1,7 @@
 package com.example.demo.blog.domain;
 
-import lombok.Data;
 import com.github.rjeschke.txtmark.Processor;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 
@@ -68,9 +68,13 @@ public class Blog {
         this.content = content;
     }
 
+    /**
+     * 将markdown转换为html格式
+     * @param content
+     */
     public void setContent(String content) {
         this.content = content;
-        this.htmlContent =
+        this.htmlContent = Processor.process(content);
     }
 
 
