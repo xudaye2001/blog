@@ -14,14 +14,14 @@ public interface BlogService  {
      * @param blog
      * @return
      */
-    Blog savaBlog(Blog blog);
+    Blog saveBlog(Blog blog);
 
     /**
      * 删除博客
      * @param id
      * @return
      */
-    Void removeBlog(Long id);
+    void removeBlog(Long id);
 
     /**
      * 根据id获取Blog

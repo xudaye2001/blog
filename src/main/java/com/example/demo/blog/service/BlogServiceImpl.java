@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Null;
 import java.util.Optional;
 
 @Service
@@ -18,21 +17,21 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogRespository blogRespository;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Blog savaBlog(Blog blog) {
+    public Blog saveBlog(Blog blog) {
         Blog returnBlog = (Blog) blogRespository.save(blog);
         return returnBlog;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Void removeBlog(Long id) {
+    public void removeBlog(Long id) {
         blogRespository.deleteById(id);
     }
 
     @Override
-    public Optional getBlogById(Long id) {
+    public Optional<Blog> getBlogById(Long id) {
         return blogRespository.findById(id);
     }
 
@@ -42,6 +41,7 @@ public class BlogServiceImpl implements BlogService {
         String tags = title;
         Page<Blog> blogs = blogRespository.findByTitleLikeAndUserOrTagsLikeAndUserOrderByCreateTimeDesc(
                 user, tags, user, pageable);
+        return blogs;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class BlogServiceImpl implements BlogService {
         if (blog.isPresent()) {
             blogNew = blog.get();
             blogNew.setReadSize(blogNew.getReadSize()+1);
-            this.savaBlog(blogNew);
+            this.saveBlog(blogNew);
 //            blogRespository.save(blogNew.getId());
         }
     }
