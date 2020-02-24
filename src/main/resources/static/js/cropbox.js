@@ -175,7 +175,8 @@
         detachEvent = function (node, event, cb) {
             if (node.detachEvent) {
                 node.detachEvent('on' + event, cb);
-            } else if (node.removeEventListener) {
+            }
+            else if (node.removeEventListener) {
                 node.removeEventListener(event, render);
             }
         },
