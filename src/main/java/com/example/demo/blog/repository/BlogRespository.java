@@ -17,8 +17,10 @@ public interface BlogRespository extends JpaRepository<Blog, Long> {
      */
     Page<Blog> findByUserAndTitleLike(User user, String title, Pageable pageable);
 
+
     /**
      * 根据用户名/博客查询博客列表(时间逆序)
+     * @param title
      * @param user
      * @param tags
      * @param user1
@@ -26,5 +28,5 @@ public interface BlogRespository extends JpaRepository<Blog, Long> {
      * @return
      */
     Page<Blog> findByTitleLikeAndUserOrTagsLikeAndUserOrderByCreateTimeDesc(
-            User user, String tags, User user1, Pageable pageable);
+            String title, User user, String tags, User user1, Pageable pageable);
 }

@@ -15,9 +15,13 @@
 
             <div class="row">
                 <div class="col-md-12">
-						<span> <a href="/u/waylau" title="waylau"> <img
-                                src="https://waylau.com/images/waylau_181_181.jpg"
-                                class="blog-avatar-230" alt="waylau">
+						<span> <a href="/u/waylau"
+                                  th:href="'/u/' + ${user.username}" title="waylau"
+                                  th:title="${user.username}"> <img
+                                th:src="${user.avatar} == null
+									? '/images/avatar-defualt.jpg'
+									: ${user.avatar} "
+                                class="blog-avatar-230">
 						</a>
 						</span>
 
@@ -27,13 +31,13 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <h2 class="card-text">老卫</h2>
+                    <h2 class="card-text" th:text="${user.username}">老卫</h2>
                 </div>
             </div>
             <div class="row">
 
                 <div class="col-md-12">
-                    <h4 class="card-text">waylau</h4>
+                    <h4 class="card-text" th:text="${user.name}">waylau</h4>
                 </div>
             </div>
             <hr>
@@ -41,7 +45,8 @@
                 <div class="col-md-12">
                     <h5>
                         <i class="fa fa-envelope-o" aria-hidden="true"></i> <a
-                            href="mailto:waylau521@gmail.com">waylau521@gmail.com</a>
+                            href="mailto:waylau521@gmail.com"
+                            th:href="${user.email}" th:text="${user.email}">waylau521@gmail.com</a>
                     </h5>
                 </div>
             </div>
@@ -78,7 +83,8 @@
             <ul class="nav nav-tabs mr-auto">
 
                 <li class="nav-item"><a class="nav-link active"
-                                        href="/u/waylau/blogs?order=new">最新</a></li>
+                                        href="/u/waylau/blogs?order=new"
+                                        th:href="'/u/'+${user.username}"+''>最新</a></li>
 
                 <li class="nav-item"><a class="nav-link"
                                         href="/u/waylau/blogs?order=hot">最热</a></li>

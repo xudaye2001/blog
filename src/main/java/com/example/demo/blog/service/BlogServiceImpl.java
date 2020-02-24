@@ -40,7 +40,7 @@ public class BlogServiceImpl implements BlogService {
         title = "%"+title+"%";
         String tags = title;
         Page<Blog> blogs = blogRespository.findByTitleLikeAndUserOrTagsLikeAndUserOrderByCreateTimeDesc(
-                user, tags, user, pageable);
+                title, user, tags, user, pageable);
         return blogs;
     }
 

@@ -64,12 +64,12 @@ public class UserspaceController {
      * @param keyword
      * @return
      */
-    @GetMapping("/{username}/lobogs")
-    public String listBlogOrder(@PathVariable("username") String username,
+    @GetMapping("/{username}/blogs")
+    public String listBlogOrder(@PathVariable(value = "username") String username,
                                 @RequestParam(value = "order", required = false, defaultValue = "new") String order,
                                 @RequestParam(value = "catalog", required = false) Long catalogId,
                                 @RequestParam(value = "keyword", required = false) String keyword,
-                                @RequestParam(value = "async", required = false) Boolean async,
+                                @RequestParam(value = "async", required = false) boolean async,
                                 @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
                                 Model model) {
@@ -82,7 +82,7 @@ public class UserspaceController {
             /*分类查询TODO*/
         } else if (order.equals("hot")) {
             Sort sort = Sort.by(Sort.Direction.DESC, "readSize", "commentSize", "voteSize");
-            Pageable pageable = PageRequest.of(pageIndex, pageSize);
+            Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
             page = blogService.listBlogsByTitleVoteAndSort(user, keyword, pageable);
         } else if (order.equals("new")) {
             Pageable pageable = PageRequest.of(pageIndex, pageSize);

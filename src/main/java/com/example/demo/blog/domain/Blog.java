@@ -2,7 +2,6 @@ package com.example.demo.blog.domain;
 
 import com.github.rjeschke.txtmark.Processor;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 
 import javax.persistence.*;
